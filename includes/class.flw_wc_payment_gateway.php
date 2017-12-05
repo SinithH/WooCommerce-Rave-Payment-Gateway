@@ -14,9 +14,9 @@
      */
     public function __construct() {
 
-      $this->base_url = 'http://flw-pms-dev.eu-west-1.elasticbeanstalk.com';
+      $this->base_url = 'https://rave-api-v2.herokuapp.com';
       $this->id = 'rave';
-      $this->icon = null;
+      $this->icon = 'https://res.cloudinary.com/dkbfehjxf/image/upload/v1511542310/Pasted_image_at_2017_11_09_04_50_PM_vc75kz.png';
       $this->has_fields         = false;
       $this->method_title       = __( 'Rave', 'flw-payments' );
       $this->method_description = __( 'Rave Payment Gateway', 'flw-payments' );

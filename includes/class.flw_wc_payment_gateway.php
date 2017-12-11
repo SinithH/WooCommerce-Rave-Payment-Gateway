@@ -210,7 +210,7 @@
         $txnref    = "WOOC_" . $order_id . '_' . time();
         $amount    = $order->order_total;
         $email     = $order->billing_email;
-        $currency  = get_option('woocommerce_currency');
+        $currency  = $order->order_currency;
         $country  = $this->country;
 
         if ( $order->order_key == $order_key ) {

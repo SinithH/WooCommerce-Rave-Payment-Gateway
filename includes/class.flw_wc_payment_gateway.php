@@ -15,6 +15,7 @@
     public function __construct() {
 
       $this->base_url = 'https://rave-api-v2.herokuapp.com';
+      $this->retries = 3;
       $this->id = 'rave';
       $this->icon = 'https://res.cloudinary.com/dkbfehjxf/image/upload/v1511542310/Pasted_image_at_2017_11_09_04_50_PM_vc75kz.png';
       $this->has_fields         = false;
@@ -292,8 +293,10 @@
      * Fetches transaction from rave enpoint
      *
      * @param $tx_ref string the transaction to fetch
-     *
-     * @return string
+     * * Fetches transaction from the payment gateway
+     * @param  [stirng] $tx_ref     [The transaction reference to be fetched]
+     * @param  [string] $secret_key [The secret key use to authorize the fetch]
+     * @return [mixed]
      */
     private function _fetchTransaction( $flw_ref ) {
 
@@ -302,7 +305,8 @@
         'body' => array(
           'flw_ref' => $flw_ref,
           'SECKEY' => $this->secret_key ),
-        'sslverify' => false
+        'sslverify' => false,
+        'timeout' => 60
       );
 
       $response = wp_remote_post( $url, $args );
@@ -310,6 +314,11 @@
 
       if( $result === 200 ){
         return wp_remote_retrieve_body( $response );
+      } else{
+            if($this->retries > 0) {
+                    $this->retries--;
+                   return $this->_fetchTransaction($flw_ref, $this->$secret_key);
+            }
       }
 
       return $result;

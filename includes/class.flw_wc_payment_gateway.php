@@ -42,6 +42,7 @@
       $this->go_live      = $this->get_option( 'go_live' );
       $this->payment_method = $this->get_option( 'payment_method' );
       $this->country = $this->get_option( 'country' );
+      $this->modal_logo = $this->get_option( 'modal_logo' );
 
       add_action( 'admin_notices', array( $this, 'admin_notices' ) );
       add_action( 'woocommerce_receipt_' . $this->id, array($this, 'receipt_page'));
@@ -117,7 +118,13 @@
             'KE' => esc_html_x( 'KE', 'country', 'flw-payments' ),
           ),
           'default'     => 'NG'
-        )
+        ),
+        'modal_logo' => array(
+           'title'       => __( 'Modal Custom Logo', 'flw-payments' ),
+           'type'        => 'text',
+           'description' => __( 'Optional - URL to your store\'s logo. Preferably a square image', 'flw-payments' ),
+           'default'     => ''
+         )
 
       );
 
@@ -240,13 +247,17 @@
         
         if(urldecode( $_GET['rave_id'] )){
           
+          if($this->modal_logo){
+            $rave_m_logo = $this->modal_logo;
+          }
+          
           // Make payment
           $payment
           ->eventHandler(new myEventHandler($order))
           ->setAmount($order->order_total)
           ->setPaymentMethod($this->payment_method) // value can be card, account or both
           ->setDescription("Payment for Order ID: $order_id on ". get_bloginfo('name'))
-          // ->setLogo($postData['logo'])
+          ->setLogo($rave_m_logo)
           ->setTitle(get_bloginfo('name'))
           ->setCountry($this->country)
           ->setCurrency($order->get_order_currency())

@@ -1,12 +1,12 @@
 <?php
+
 /*
 Plugin Name: WooCommerce Rave Payment Gateway
-Plugin URI: http://flutterwave.com/
+Plugin URI: https://rave.flutterwave.com/
 Description: WooCommerce payment gateway for Rave.
-Version: 0.0.1
+Version: 1.0.0
 Author: Bosun Olanrewaju
 Author URI: http://twitter.com/bosunolanrewaju
-  Copyright: © 2016 Bosun Olanrewaju.
   License: MIT License
 */
 
@@ -60,3 +60,5 @@ function flw_woocommerce_rave_init() {
 
   }
 }
+
+?>

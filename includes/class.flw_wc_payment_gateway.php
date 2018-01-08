@@ -34,8 +34,8 @@
       $this->init_form_fields();
       $this->init_settings();
 
-      $this->title        = __( 'Rave', 'flw-payments' );
-      $this->description  = __( 'Powered by Flutterwave: Accepts Mastercard, Visa, Verve, Discover, AMEX, Diners Club and Union Pay.', 'flw-payments' );
+      $this->title        = $this->get_option( 'title' );
+      $this->description  = $this->get_option( 'description' );
       $this->enabled      = $this->get_option( 'enabled' );
       $this->public_key   = $this->get_option( 'public_key' );
       $this->secret_key   = $this->get_option( 'secret_key' );
@@ -84,6 +84,18 @@
           'description' => __( 'Ensure that you are using a public key and secret key generated from the live account.', 'flw-payments' ),
           'default'     => 'no',
           'desc_tip'    => true
+        ),
+        'title' => array(
+          'title'       => __( 'Payment method title', 'flw-payments' ),
+          'type'        => 'text',
+          'description' => __( 'Optional', 'flw-payments' ),
+          'default'     => 'Rave'
+        ),
+        'description' => array(
+          'title'       => __( 'Payment method description', 'flw-payments' ),
+          'type'        => 'text',
+          'description' => __( 'Optional', 'flw-payments' ),
+          'default'     => 'Powered by Flutterwave: Accepts Mastercard, Visa, Verve, Discover, AMEX, Diners Club and Union Pay.'
         ),
         'public_key' => array(
           'title'       => __( 'Rave Checkout Public Key', 'flw-payments' ),
